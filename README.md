@@ -2,6 +2,12 @@
 Virtual Judge - Deploy
 
 ### 接口测试部署
+#### 测试环境
+```
+docker 17.12.0-ce
+docker-compose 1.18.0
+```
+
 #### 国内方案
 ```
 docker-compose up -d
