@@ -31,4 +31,4 @@ services:
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
     ports:
-      - "0.0.0.0:8000:8000"
+      - "0.0.0.0:3000:80"
