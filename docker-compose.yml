@@ -21,7 +21,7 @@ services:
 
   vj-backend:
     image:  registry.cn-hangzhou.aliyuncs.com/virtual-judge/virtual-judge
-    container_name: virtual-judge
+    container_name: vj-backend
     restart: always
     depends_on:
       - vj-redis
@@ -30,5 +30,7 @@ services:
       - POSTGRES_DB=vj_database
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
+    volumes:
+      - ~/data/public:/public
     ports:
       - "0.0.0.0:3000:80"
