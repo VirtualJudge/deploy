@@ -32,5 +32,6 @@ services:
       - POSTGRES_PASSWORD=vj_password
     volumes:
       - ~/data/public:/public
+      - ~/data/log:/data/log
     ports:
       - "0.0.0.0:3000:80"
