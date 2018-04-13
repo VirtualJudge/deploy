@@ -20,7 +20,7 @@ services:
       - POSTGRES_PASSWORD=vj_password
 
   vj-backend:
-    image:  registry.cn-hangzhou.aliyuncs.com/virtual-judge/virtual-judge
+    image:  registry.ap-northeast-1.aliyuncs.com/virtual-judge/virtual-judge:latest
     container_name: vj-backend
     restart: always
     depends_on:

@@ -1,7 +1,11 @@
 # VirtualJudgeDeploy
+[![Docker](https://img.shields.io/badge/docker-latest-blue.svg)](https://img.shields.io/badge/docker-latest-blue.svg)
+[![docker-compose](https://img.shields.io/badge/docker--compose-latest-blue.svg)](https://img.shields.io/badge/docker--compose-latest-blue.svg)
+
 Virtual Judge - Deploy
 
 ### 接口测试部署
+
 #### 测试环境
 ```
 docker 17.12.0-ce
@@ -10,14 +14,11 @@ docker-compose 1.18.0
 
 #### 国内方案
 ```
-docker-compose up -d
+docker-compose -f cn.yml up -d
 ```
 
-#### 其他地区
+#### 东京地区
 ```
 cd others/
-docker-compose up -d
+docker-compose -f jp.yml up -d
 ```
-
-#### 备注
-第一次使用需要`/api/config_remote`用post方法提供爬虫账号密码
