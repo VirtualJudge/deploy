@@ -27,6 +27,8 @@ services:
       - vj-redis
       - vj-postgres
     environment:
+      - REDIS_HOST=vj-redis
+      - POSTGRES_HOST=vj-postgres
       - POSTGRES_DB=vj_database
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
