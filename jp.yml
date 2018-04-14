@@ -3,15 +3,11 @@ services:
 
   vj-redis:
     image: redis:4.0
-    container_name: vj-redis
-    restart: always
     volumes:
       - ~/data/redis:/data
 
   vj-postgres:
     image: postgres:10
-    container_name: vj-postgres
-    restart: always
     volumes:
       - ~/data/postgres:/var/lib/postgresql/data
     environment:
@@ -21,17 +17,30 @@ services:
 
   vj-backend:
     image:  registry.ap-northeast-1.aliyuncs.com/virtual-judge/virtual-judge:latest
-    container_name: vj-backend
-    restart: always
     depends_on:
       - vj-redis
       - vj-postgres
     environment:
+      - REDIS_HOST=vj-redis
+      - POSTGRES_HOST=vj-postgres
       - POSTGRES_DB=vj_database
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
     volumes:
-      - ~/data/public:/public
+      - ~/data/public:/public:ro
       - ~/data/log:/data/log
+      - ~/data/static:/data/static
+
+  vj-nginx:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/nginx/nginx.conf
+      - ~/data/public:/public:ro
+      - ~/data/static:/static:ro
+    depends_on:
+      - vj-backend
     ports:
-      - "0.0.0.0:3000:80"
+      - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
+    command: /bin/bash -c "envsubst < /nginx/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+
