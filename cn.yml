@@ -3,11 +3,13 @@ services:
 
   vj-redis:
     image: redis:4.0
+    container_name: vj-redis
     volumes:
       - ~/data/redis:/data
 
   vj-postgres:
     image: postgres:10
+    container_name: vj-postgres
     volumes:
       - ~/data/postgres:/var/lib/postgresql/data
     environment:
@@ -17,6 +19,7 @@ services:
 
   vj-backend:
     image:  registry.cn-hangzhou.aliyuncs.com/virtual-judge/virtual-judge:latest
+    container_name: vj-backend
     depends_on:
       - vj-redis
       - vj-postgres
@@ -33,6 +36,7 @@ services:
 
   vj-nginx:
     image: nginx
+    container_name: vj-nginx
     volumes:
       - ./nginx/nginx.conf:/nginx/nginx.conf
       - ~/data/public:/public:ro
