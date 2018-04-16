@@ -30,7 +30,7 @@ services:
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
     volumes:
-      - ~/data/public:/public:ro
+      - ~/data/public:/public
       - ~/data/log:/data/log
       - ~/data/static:/data/static
 
@@ -39,8 +39,8 @@ services:
     container_name: vj-nginx
     volumes:
       - ./nginx/nginx.conf:/nginx/nginx.conf
-      - ~/data/public:/public:ro
-      - ~/data/static:/static:ro
+      - ~/data/public:/public
+      - ~/data/static:/static
     depends_on:
       - vj-backend
     ports:
