@@ -36,12 +36,14 @@ services:
       - POSTGRES_DB=vj_database
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
-      - PHANTOMJS_HOST=vj-phantomjs
-      - PHANTOMJS_PORT=8910
     volumes:
       - ~/data/public:/public
       - ~/data/log:/data/log
       - ~/data/static:/data/static
+
+  vj-frontend:
+    image: registry.cn-hangzhou.aliyuncs.com/virtual-judge/virtual-judge-fe:latest
+    container_name: vj-frontend
 
   vj-nginx:
     image: nginx
@@ -52,7 +54,9 @@ services:
       - ~/data/static:/static
     depends_on:
       - vj-backend
+      - vj-frontend
     ports:
       - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
     command: /bin/bash -c "envsubst < /nginx/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 

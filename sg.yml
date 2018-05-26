@@ -17,31 +17,25 @@ services:
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
 
-  vj-phantomjs:
-    image: wernight/phantomjs
-    container_name: vj-phantomjs
-    restart: always
-    command: ['phantomjs', '--webdriver=8910']
-
   vj-backend:
     image: registry.ap-southeast-1.aliyuncs.com/virtual-judge/virtual-judge:latest
     container_name: vj-backend
     depends_on:
       - vj-redis
       - vj-postgres
-      - vj-phantomjs
     environment:
       - REDIS_HOST=vj-redis
       - POSTGRES_HOST=vj-postgres
       - POSTGRES_DB=vj_database
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
-      - PHANTOMJS_HOST=vj-phantomjs
-      - PHANTOMJS_PORT=8910
     volumes:
       - ~/data/public:/public
       - ~/data/log:/data/log
       - ~/data/static:/data/static
+  vj-frontend:
+    image: registry.ap-southeast-1.aliyuncs.com/virtual-judge/virtual-judge-fe
+    container_name: vj-frontend
 
   vj-nginx:
     image: nginx
@@ -52,7 +46,9 @@ services:
       - ~/data/static:/static
     depends_on:
       - vj-backend
+      - vj-frontend
     ports:
       - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
     command: /bin/bash -c "envsubst < /nginx/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
