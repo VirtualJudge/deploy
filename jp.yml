@@ -24,7 +24,6 @@ services:
     depends_on:
       - vj-redis
       - vj-postgres
-      - vj-phantomjs
     environment:
       - REDIS_HOST=vj-redis
       - POSTGRES_HOST=vj-postgres

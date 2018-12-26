@@ -17,19 +17,12 @@ services:
       - POSTGRES_USER=vj_username
       - POSTGRES_PASSWORD=vj_password
 
-  vj-phantomjs:
-    image: wernight/phantomjs
-    container_name: vj-phantomjs
-    restart: always
-    command: ['phantomjs', '--webdriver=8910']
-
   vj-backend:
     image:  registry.cn-hangzhou.aliyuncs.com/virtual-judge/virtual-judge:latest
     container_name: vj-backend
     depends_on:
       - vj-redis
       - vj-postgres
-      - vj-phantomjs
     environment:
       - REDIS_HOST=vj-redis
       - POSTGRES_HOST=vj-postgres
