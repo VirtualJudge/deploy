@@ -34,22 +34,5 @@ services:
       - ~/data/public:/public
       - ~/data/log:/data/log
       - ~/data/static:/data/static
-  vj-frontend:
-    image: registry.ap-northeast-1.aliyuncs.com/virtual-judge/virtual-judge-fe:latest
-    container_name: vj-frontend
-
-  vj-nginx:
-    image: nginx
-    container_name: vj-nginx
-    volumes:
-      - ./nginx:/nginx
-      - ~/data/public:/public
-      - ~/data/static:/static
-    depends_on:
-      - vj-backend
-      - vj-frontend
     ports:
-      - '0.0.0.0:80:80'
-      - '0.0.0.0:443:443'
-    command: /bin/bash -c "envsubst < /nginx/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
-
+      - 0.0.0.0:8080:8080
