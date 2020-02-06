@@ -18,7 +18,7 @@ services:
       - POSTGRES_PASSWORD=vj_password
 
   vj-backend:
-    image:  registry.cn-hangzhou.aliyuncs.com/virtual-judge/virtual-judge:latest
+    image: registry.cn-hangzhou.aliyuncs.com/dianhsu/vj_backend:latest
     container_name: vj-backend
     depends_on:
       - vj-redis
