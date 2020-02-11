@@ -1,0 +1,27 @@
+version: "3"
+services:
+  vj-backend-dev:
+    image: registry.cn-hangzhou.aliyuncs.com/dianhsu/vj_backend:Python3.7
+    container_name: vj-backend-dev
+    restart: always
+    depends_on:
+      - vj-postgres-dev
+    environment:
+      - POSTGRES_DB=vj_database
+      - POSTGRES_USER=vj_username
+      - POSTGRES_PASSWORD=vj_password
+      - POSTGRES_HOST=vj-postgres-dev
+      - VJ_ENV=development
+    ports:
+      - "0.0.0.0:8000:8000"
+
+  vj-postgres-dev:
+    image: postgres:alpine
+    container_name: vj-postgres-dev
+    restart: always
+    volumes:
+      - ~/data/postgres-dev:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=vj_database
+      - POSTGRES_USER=vj_username
+      - POSTGRES_PASSWORD=vj_password
